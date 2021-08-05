@@ -1,19 +1,51 @@
-// Searchbar
+import React, { Component } from "react";
+// import { v4 as uuidv4 } from "uuid";
+// import PropTypes from "prop-types";
 
-<header className="Searchbar">
-  <form className="SearchForm">
-    <button type="submit" className="SearchForm-button">
-      <span className="SearchForm-button-label">Search</span>
-    </button>
+class Searchbar extends Component {
+  state = {
+    search: "",
+  };
 
-    <input
-      className="SearchForm-input"
-      type="text"
-      autocomplete="off"
-      autofocus
-      placeholder="Search images and photos"
-    />
-  </form>
-</header>;
+  handleChange = (e) => {
+    this.setState({ search: e.currentTarget.value.toLowerCase() });
+  };
 
-// export default Searchbar;
+  handleSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.search.trim() === "") {
+      //
+      return;
+    }
+    this.props.onSubmit(this.state.search);
+    this.reset();
+  };
+
+  reset = () => {
+    this.setState({ search: "" });
+  };
+
+  render() {
+    return (
+      <header className="Searchbar">
+        <form onSubmit={this.handleSubmit} className="SearchForm">
+          <button type="submit" className="SearchForm-button">
+            <span className="SearchForm-button-label">Search</span>
+          </button>
+
+          <input
+            value={this.state.search}
+            className="SearchForm-input"
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            onChange={this.handleChange}
+          />
+        </form>
+      </header>
+    );
+  }
+}
+
+export default Searchbar;
