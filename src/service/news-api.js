@@ -10,5 +10,5 @@ const fetchHits = async ({ search = "", currentPage = 1 }) => {
     .then((response) => response.data.hits);
 };
 
-const exportImage = { fetchHits };
-export default exportImage;
+const imagesApi = { fetchHits };
+export default imagesApi;

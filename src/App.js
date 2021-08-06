@@ -7,7 +7,7 @@ import Searchbar from "./components/Searchbar";
 import ImageGallery from "./components/ImageGallery";
 import LoaderGallery from "./components/Loader";
 import Button from "./components/Button";
-// import Modal from "./components/Modal";
+import Modal from "./components/Modal";
 
 class App extends Component {
   state = {
@@ -15,10 +15,11 @@ class App extends Component {
     search: "",
     loading: false,
     error: null,
-    status: "idle",
     currentPage: 1,
     currentPageHits: [],
     showModal: false,
+    url: "",
+    tag: "",
   };
 
   componentDidMount() {}
@@ -37,6 +38,8 @@ class App extends Component {
       currentPage: 1,
       hits: [],
       error: null,
+      url: "",
+      tag: "",
     });
   };
 
@@ -66,21 +69,46 @@ class App extends Component {
       .finally(() => this.setState({ loading: false }));
   };
 
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
+
+  bigImage = ({ target }) => {
+    if (target.nodeName !== "IMG") {
+      return;
+    }
+    const { url } = target.dataset;
+    const tag = target.alt;
+    this.setState({
+      url,
+      tag,
+      loading: false,
+    });
+    this.toggleModal();
+  };
+
   render() {
-    const { error, loading, currentPageHits } = this.state;
+    const { error, loading, hits, currentPageHits, showModal, url, tag } =
+      this.state;
     const renderLoadMore = !(currentPageHits.length < 12) && !loading;
     return (
       <>
         <Searchbar onSubmit={this.addSearch} />
         {error && <p style={{ textAlign: "center", color: "red" }}>{error}</p>}
 
-        <ImageGallery hits={this.state.hits} />
+        <ImageGallery hits={hits} onClick={this.bigImage} />
 
         {loading && <LoaderGallery />}
 
         {renderLoadMore && <Button onFetchHits={this.fetchHits} />}
 
-        {/* <Modal /> */}
+        {showModal && (
+          <Modal onClose={this.toggleModal} onClick={this.bigImage}>
+            <img src={url} alt={tag} />
+          </Modal>
+        )}
       </>
     );
   }

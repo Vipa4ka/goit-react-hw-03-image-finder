@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import { v4 as uuidv4 } from "uuid";
 // import PropTypes from "prop-types";
 
 class Searchbar extends Component {
@@ -14,7 +13,6 @@ class Searchbar extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.search.trim() === "") {
-      //
       return;
     }
     this.props.onSubmit(this.state.search);
