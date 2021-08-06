@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-// import { v4 as uuidv4 } from "uuid";
-// import PropTypes from 'prop-types'
 
 import imagesApi from "./service/news-api";
 import Searchbar from "./components/Searchbar";

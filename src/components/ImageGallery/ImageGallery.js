@@ -1,5 +1,4 @@
-// import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import ImageGalleryItem from "../ImageGalleryItem";
 
 const ImageGallery = ({ hits, onClick }) => (
@@ -15,8 +14,9 @@ const ImageGallery = ({ hits, onClick }) => (
   </ul>
 );
 
-export default ImageGallery;
+ImageGallery.propTypes = {
+  hits: PropTypes.array.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
-//   <ul className="ImageGallery">
-//   {/* <!-- Набор <li> с изображениями --> */}
-// </ul>
+export default ImageGallery;

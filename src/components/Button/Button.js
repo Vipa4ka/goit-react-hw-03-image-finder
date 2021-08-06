@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 class Button extends Component {
   componentDidMount() {
@@ -16,8 +16,8 @@ class Button extends Component {
     );
   }
 }
-// Button.propTypes = {
-//     onClick: PropTypes.func
-//   };
+Button.propTypes = {
+  onFetchHits: PropTypes.func.isRequired,
+};
 
 export default Button;
